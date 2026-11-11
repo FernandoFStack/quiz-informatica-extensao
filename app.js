@@ -1,9 +1,3 @@
-/* ==========================================================
-   PROJETO: Mestre da Informática
-   DESENVOLVEDOR: Fernando Fernandes Leite de Oliveira
-   INSTITUIÇÃO: Uninter | ANO: 2026
-   ========================================================== */
-
 const CONTEUDO_GERAL = {
     "hardware": [
         { titulo: "A Fortaleza de Aço e Plástico", imagem: "imagens/gabinete.jpg", texto_aula: "O gabinete é a estrutura externa que abriga e organiza os componentes internos da máquina. Mais do que estética, ele serve para proteger peças sensíveis contra poeira, impactos físicos e ajudar na ventilação correta.", pergunta: "Qual peça protege e organiza os componentes internos do computador?", alternativas: ["Monitor", "Gabinete", "Teclado", "Impressora"], resposta: "Gabinete", link: "https://pt.wikipedia.org/wiki/Gabinete_de_computador" },
@@ -68,16 +62,9 @@ const CONTEUDO_GERAL = {
         { titulo: "O Segredo dos Dados (Criptografia)", imagem: "imagens/seguranca.jpg", texto_aula: "A criptografia utiliza códigos secretos e complexos para proteger as informações, garantindo que apenas pessoas autorizadas consigam ler os dados.", pergunta: "Função da criptografia?", alternativas: ["Aumentar o volume", "Dificultar acesso a dados pessoais", "Mudar cor do monitor", "Desligar o computador"], resposta: "Dificultar acesso a dados pessoais", link: "https://pt.wikipedia.org/wiki/Senha" },
         { titulo: "A Seta na Tela (Cursor)", imagem: "imagens/cursor.jpg", texto_aula: "O cursor é aquele indicador em formato de seta que se move na tela conforme você mexe o mouse, servindo para apontar e interagir com os elementos.", pergunta: "Como se chama o indicador do mouse?", alternativas: ["Link", "Cursor", "Janela", "Botão"], resposta: "Cursor", link: "https://pt.wikipedia.org/wiki/Cursor_(informática)" },
         { titulo: "Enviando e Recebendo Dados", imagem: "imagens/upload.jpg", texto_aula: "Quando você faz um upload, você envia dados ou arquivos do seu computador para um servidor na rede. Quando faz um download, você recebe esses dados de lá para cá.", pergunta: "Enviar arquivo para o servidor chama-se:", alternativas: ["Download", "Upload", "Delete", "Print"], resposta: "Upload", link: "https://pt.wikipedia.org/wiki/Download" },
-        { titulo: "O Programa Malicioso (Vírus)", imagem: "imagens/virus.jpg", texto_aula: "Um vírus de computador é um programa mal-intencionado criado para se espalhar, danificar arquivos ou roubar informações de forma escondida.", pergunta: "O que é um vírus no computador?", alternativas: ["Um jogo divertido", "Um programa ruim", "Uma imagem bonita", "Um som legal"], resposta: "Um programa ruim", link: "https://pt.wikipedia.org/wiki/Vírus_de_computador" },
-        { titulo: "CPU/Processador", imagem: "imagens/processador.jpg", texto_aula: "A Unidade Central de Processamento (CPU) é o 'cérebro' do computador, responsável por executar instruções aritméticas, lógicas e de controle que vêm dos programas. Composta por bilhões de transistores microscópicos, ela processa dados em ciclos de clock por segundo, transformando entradas binárias em instruções compreensíveis para todo o sistema.", pergunta: "Considerando a arquitetura de von Neumann e o funcionamento interno de um computador, qual componente atua como o principal núcleo de processamento responsável por executar as instruções lógicas e aritméticas dos softwares?", alternativas: ["Teclado", "CPU", "Gabinete", "Webcam"], resposta: "CPU", link: "https://pt.wikipedia.org/wiki/Unidade_central_de_processamento" }
+        { titulo: "O Programa Malicioso (Vírus)", imagem: "imagens/virus.jpg", texto_aula: "Um vírus de computador é um programa mal-intencionado criado para se espalhar, danificar arquivos ou roubar informações de forma escondida.", pergunta: "O que é um vírus no computador?", alternativas: ["Um jogo divertido", "Um programa ruim", "Uma imagem bonita", "Um som legal"], resposta: "Um programa ruim", link: "https://pt.wikipedia.org/wiki/Vírus_de_computador" }
     ]
 };
-
-
-
-// ==================================================
-// ESTADO DO SISTEMA
-// ==================================================
 
 let estado = {
     aluno: { nome: "", escola: "", idade: "" },
@@ -88,29 +75,18 @@ let estado = {
     historico: []
 };
 
-// ==================================================
-// EMBARALHAR ALTERNATIVAS
-// ==================================================
-
 function embaralhar(array) {
     let m = array.length, t, i;
-
     while (m) {
         i = Math.floor(Math.random() * m--);
         t = array[m];
         array[m] = array[i];
         array[i] = t;
     }
-
     return array;
 }
 
-// ==================================================
-// CADASTRO DO ALUNO
-// ==================================================
-
 function irParaModulos() {
-
     const n = document.getElementById('nome-usuario').value.trim();
     const e = document.getElementById('escola-usuario').value.trim();
     const i = document.getElementById('idade-usuario').value;
@@ -130,12 +106,7 @@ function irParaModulos() {
     document.getElementById('selecao-categoria').classList.remove('hidden');
 }
 
-// ==================================================
-// INICIAR MÓDULO
-// ==================================================
-
 function iniciarModulo(categoria) {
-
     estado.categoriaAtual = categoria;
     estado.indiceAtual = 0;
     estado.pontuacao = 0;
@@ -148,14 +119,8 @@ function iniciarModulo(categoria) {
     renderizarEtapa();
 }
 
-// ==================================================
-// MOSTRAR AULA E PERGUNTAS
-// ==================================================
-
 function renderizarEtapa() {
-
     const container = document.getElementById('quiz-container');
-
     const dados = CONTEUDO_GERAL[estado.categoriaAtual][estado.indiceAtual];
 
     if (!dados) {
@@ -164,23 +129,13 @@ function renderizarEtapa() {
     }
 
     if (estado.mostrandoAula) {
-
         container.innerHTML = `
             <h2>${dados.titulo}</h2>
-
-            <img
-                src="${dados.imagem}"
-                class="img-aula"
-                style="max-width:100%; height:auto; border-radius:10px;"
-                onerror="this.src='https://via.placeholder.com/500x300?text=Imagem+Indisponivel'"
-            >
-
+            <img src="${dados.imagem}" class="img-aula" style="max-width:100%; height:auto; border-radius:10px;" onerror="this.src='https://via.placeholder.com/500x300?text=Imagem+Indisponivel'">
             <div class="texto-explicativo">
                 <p>${dados.texto_aula.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
             </div>
-
             <br>
-
             <button class="botao-principal" id="btn-desafio">
                 Fazer Desafio
             </button>
@@ -190,49 +145,31 @@ function renderizarEtapa() {
             estado.mostrandoAula = false;
             renderizarEtapa();
         });
-
     } else {
-
         const alternativasFinal = embaralhar([...dados.alternativas]);
 
         container.innerHTML = `
             <h3>${dados.pergunta}</h3>
-
             <div class="alternativas">
-                ${alternativasFinal.map((alt, index) => `
-                    <button class="btn-alt" data-resposta="${index}">
+                ${alternativasFinal.map((alt) => `
+                    <button class="btn-alt" data-escolha="${alt}">
                         ${alt}
                     </button>
                 `).join('')}
             </div>
         `;
 
-        // CORREÇÃO DOS BOTÕES DE RESPOSTA
-
         container.querySelectorAll('.btn-alt').forEach(botao => {
-
             botao.addEventListener('click', function() {
-
-                const escolha = alternativasFinal[
-                    Number(this.dataset.resposta)
-                ];
-
+                const escolha = this.dataset.escolha;
                 verificarResposta(escolha);
-
             });
-
         });
     }
 }
 
-// ==================================================
-// VERIFICAR RESPOSTA
-// ==================================================
-
 function verificarResposta(escolha) {
-
     const dados = CONTEUDO_GERAL[estado.categoriaAtual][estado.indiceAtual];
-
     const acertou = escolha === dados.resposta;
 
     estado.historico.push({
@@ -243,69 +180,44 @@ function verificarResposta(escolha) {
     });
 
     if (acertou) {
-
         estado.pontuacao++;
-
         estado.indiceAtual++;
-
         estado.mostrandoAula = true;
 
         if (estado.indiceAtual < CONTEUDO_GERAL[estado.categoriaAtual].length) {
-
             renderizarEtapa();
-
         } else {
-
             finalizarQuiz();
-
         }
-
     } else {
-
         const container = document.getElementById('quiz-container');
 
         container.innerHTML = `
             <h3>Ops! Você errou.</h3>
-
             <p><strong>Sua resposta:</strong> ${escolha}</p>
-
             <p><strong>Resposta correta:</strong> ${dados.resposta}</p>
-
             <div class="texto-explicativo">
                 <p>${dados.texto_aula.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
             </div>
-
             <br>
-
             <button class="botao-principal" id="btn-proxima">
                 Próxima Pergunta
             </button>
         `;
 
         document.getElementById('btn-proxima').addEventListener('click', function() {
-
             estado.indiceAtual++;
-
             estado.mostrandoAula = true;
-
             renderizarEtapa();
-
         });
     }
 }
 
-// ==================================================
-// ENVIAR RESULTADO AUTOMATICAMENTE POR E-MAIL
-// ==================================================
-
 async function enviarRelatorioAutomatico() {
-
     const total = CONTEUDO_GERAL[estado.categoriaAtual].length;
-
     const nota = (estado.pontuacao / total) * 10;
 
     const respostas = estado.historico.map((h, index) => {
-
         return `
 QUESTÃO ${index + 1}
 Pergunta: ${h.pergunta}
@@ -314,28 +226,22 @@ Resposta correta: ${h.correta}
 Resultado: ${h.status ? "ACERTOU" : "ERROU"}
 ------------------------------
 `;
-
     }).join("\n");
 
     const dadosFormulario = new FormData();
 
     dadosFormulario.append("_subject", "Novo resultado - Mestre da Informática");
     dadosFormulario.append("_template", "table");
-
     dadosFormulario.append("Nome do aluno", estado.aluno.nome);
     dadosFormulario.append("Escola", estado.aluno.escola);
     dadosFormulario.append("Idade", estado.aluno.idade);
-
     dadosFormulario.append("Módulo", estado.categoriaAtual.toUpperCase());
-
     dadosFormulario.append("Acertos", estado.pontuacao);
     dadosFormulario.append("Total de questões", total);
     dadosFormulario.append("Nota final", nota.toFixed(1));
-
     dadosFormulario.append("Histórico de respostas", respostas);
 
     try {
-
         const resposta = await fetch(
             "https://formsubmit.co/ajax/fernandofldo20@gmail.com",
             {
@@ -358,155 +264,95 @@ Resultado: ${h.status ? "ACERTOU" : "ERROU"}
         }
 
         return true;
-
     } catch (erro) {
-
         console.error("Erro ao enviar relatório:", erro);
-
         return false;
     }
 }
 
-// ==================================================
-// FINALIZAR QUIZ
-// ==================================================
-
 async function finalizarQuiz() {
-
     const container = document.getElementById('quiz-container');
-
     const total = CONTEUDO_GERAL[estado.categoriaAtual].length;
-
     const nota = (estado.pontuacao / total) * 10;
 
     container.innerHTML = `
         <h2>Parabéns, ${estado.aluno.nome}!</h2>
-
         <p>Você concluiu o módulo de ${estado.categoriaAtual.toUpperCase()}.</p>
-
         <div class="resultado-box">
-
-            <p>Acertos:
-                <strong>${estado.pontuacao}</strong> de ${total}
-            </p>
-
-            <p>Sua Nota:
-                <strong>${nota.toFixed(1)}</strong>
-            </p>
-
+            <p>Acertos: <strong>${estado.pontuacao}</strong> de ${total}</p>
+            <p>Sua Nota: <strong>${nota.toFixed(1)}</strong></p>
         </div>
-
         <p id="status-email">
             📧 Enviando automaticamente seu resultado...
         </p>
-
         <div class="beneficios-box">
-
             <h4>🚀 Por que aprender Informática?</h4>
-
             <ul>
                 <li>✅ Abre portas para muitos empregos.</li>
                 <li>✅ O mercado de tecnologia cresce rapidamente.</li>
                 <li>✅ Ajuda a resolver problemas de forma lógica.</li>
                 <li>✅ Permite trabalhar de casa ou viajar.</li>
             </ul>
-
             <p>
                 Aprender computação é como ganhar um superpoder para o futuro!
             </p>
-
         </div>
-
         <button class="botao-modulo" id="btn-revisao">
             Ver Revisão de Erros
         </button>
-
         <button class="botao-principal" onclick="location.reload()">
             Escolher Outro Módulo
         </button>
-
         <div id="revisao-detalhada" class="hidden"></div>
     `;
 
     document.getElementById('btn-revisao').addEventListener('click', mostrarRevisao);
 
     const enviado = await enviarRelatorioAutomatico();
-
     const status = document.getElementById('status-email');
 
     if (enviado) {
-
         status.innerHTML = "✅ Resultado enviado com sucesso!";
-
     } else {
-
         status.innerHTML = "⚠️ Não foi possível confirmar o envio. Verifique sua conexão e a configuração do serviço de e-mail.";
     }
 }
 
-// ==================================================
-// REVISÃO DAS RESPOSTAS
-// ==================================================
-
 function mostrarRevisao() {
-
     const div = document.getElementById('revisao-detalhada');
-
     div.classList.remove('hidden');
 
     div.innerHTML = `
         <h3>Revisão do Desafio</h3>
     ` + estado.historico.map((h, index) => `
-
         <div class="lista-revisao">
-
             <p><strong>${index + 1}. ${h.pergunta}</strong></p>
-
             <p style="color: ${h.status ? '#2ea043' : '#f85149'}">
                 Sua resposta: ${h.suaResposta}
             </p>
-
             ${!h.status ? `
                 <p style="color: #58a6ff">
                     Correta: ${h.correta}
                 </p>
             ` : ''}
-
         </div>
-
     `).join('');
 }
 
-// ==================================================
-// CONTROLE DA MÚSICA
-// ==================================================
-
 function toggleAudio() {
-
     const musica = document.getElementById("bg-music");
-
     const botao = document.getElementById("btn-audio");
 
     if (musica.paused) {
-
         musica.play().then(() => {
-
             botao.innerHTML = "🔊 Música: Ligada";
             botao.style.borderColor = "#2ea043";
-
         }).catch(erro => {
-
             console.error("Não foi possível reproduzir a música:", erro);
-
         });
-
     } else {
-
         musica.pause();
-
         botao.innerHTML = "🔇 Música: Desligada";
-
         botao.style.borderColor = "#30363d";
     }
 }
-
