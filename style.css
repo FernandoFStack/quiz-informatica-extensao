@@ -1,175 +1,74 @@
+/* CAMPOS DO CADASTRO */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #0d1117;
-    color: #c9d1d9;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-
-header {
-    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
-    padding: 12px 10px;
-    border-bottom: 2px solid #58a6ff;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 1.5rem;
-    color: #58a6ff;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 2px;
-}
-
-header p {
-    font-size: 0.8rem;
-    color: #8b949e;
-}
-
-
-.card, #quiz-container {
-    background: #161b22;
-    width: 92%;
-    max-width: 720px; 
-    margin: 20px auto;
-    padding: 24px 30px; 
-    border-radius: 10px;
-    border: 1px solid #30363d;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    text-align: center;
-}
-
-/* TÍTULO INTERNO DO CARD */
-.card h2, #quiz-container h2 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    color: #f0f6fc;
-}
-
-
-.card img, #quiz-container img, .img-aula {
-    width: auto;
-    max-width: 100%;
-    max-height: 230px; 
-    object-fit: contain;
-    border-radius: 6px;
-    border: 1px solid #30363d;
-    margin: 12px auto;
+#tela-cadastro input {
     display: block;
-}
-
-
-.card p, #quiz-container p {
-    font-size: 0.92rem;
-    line-height: 1.45;
-    margin-bottom: 15px; 
-    color: #c9d1d9;
-}
-
-input[type="text"], input[type="number"] {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    border: 1px solid #30363d;
-    background: #0d1117;
-    color: #c9d1d9;
-    margin: 4px;
-}
-
-.alternativas {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.btn-alt {
-    padding: 10px;
-    background: #21262d;
-    color: #c9d1d9;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-alt:hover {
-    background: #30363d;
-    border-color: #58a6ff;
-    color: #58a6ff;
-}
-
-.botao-principal, .botao-modulo {
-    background-color: #238636;
-    color: #ffffff;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 5px auto 0 auto; 
-    display: inline-block;
-    transition: background 0.2s;
-}
-
-.botao-principal:hover, .botao-modulo:hover {
-    background-color: #2ea043;
-}
-
-footer {
-    margin-top: auto;
-    padding: 10px;
-    background: #161b22;
-    border-top: 1px solid #30363d;
-    text-align: center;
-    color: #8b949e;
-    font-size: 0.75rem;
-}
-
-footer strong {
-    color: #58a6ff;
-}
-
-.hidden { display: none !important; }
-.correta { color: #2ea043; font-weight: bold; }
-.errada { color: #f85149; font-weight: bold; }
-
-.btn-audio-estilo {
-    background-color: #21262d;
-    color: #c9d1d9;
-    border: 1px solid #30363d;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
+    width: 100%;
+    max-width: 400px;
     margin: 10px auto;
-    display: inline-block;
+    padding: 12px;
 }
 
-.btn-audio-estilo:hover {
-    background-color: #30363d;
-    border-color: #58a6ff;
+/* RESULTADO */
+
+.resultado-box {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.resultado-box strong {
     color: #58a6ff;
 }
 
-/* FORÇANDO A LARGURA E O TAMANHO DO CARD E DA IMAGEM */
-.card, #quiz-container, div[class*="card"], section {
-    max-width: 820px !important;
+.beneficios-box {
+    background: #21262d;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #30363d;
 }
 
-.card img, #quiz-container img, .img-aula {
-    max-height: 280px !important;
-    width: auto !important;
+.beneficios-box ul {
+    text-align: left;
+    list-style: none;
+    font-size: 0.9rem;
+    color: #8b949e;
+}
+
+.beneficios-box p {
+    margin-top: 15px;
+}
+
+.lista-revisao {
+    border-bottom: 1px solid #30363d;
+    padding: 10px;
+    text-align: left;
+}
+
+/* MENSAGEM DO ENVIO */
+
+#status-email {
+    color: #58a6ff;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+
+    .card, #quiz-container {
+        padding: 18px;
+        width: 94%;
+    }
+
+    .alternativas {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
 }
