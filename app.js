@@ -75,6 +75,10 @@ const CONTEUDO_GERAL = {
 
 
 
+// ==================================================
+// ESTADO DO SISTEMA
+// ==================================================
+
 let estado = {
     aluno: { nome: "", escola: "", idade: "" },
     categoriaAtual: null,
@@ -83,6 +87,10 @@ let estado = {
     mostrandoAula: true,
     historico: []
 };
+
+// ==================================================
+// EMBARALHAR ALTERNATIVAS
+// ==================================================
 
 function embaralhar(array) {
     let m = array.length, t, i;
@@ -97,13 +105,19 @@ function embaralhar(array) {
     return array;
 }
 
+// ==================================================
+// CADASTRO DO ALUNO
+// ==================================================
+
 function irParaModulos() {
+
     const n = document.getElementById('nome-usuario').value.trim();
     const e = document.getElementById('escola-usuario').value.trim();
     const i = document.getElementById('idade-usuario').value;
 
     if (!n || !e || !i || Number(i) <= 0) {
-        return alert("Preencha todos os campos corretamente!");
+        alert("Preencha todos os campos corretamente!");
+        return;
     }
 
     estado.aluno = {
@@ -116,7 +130,12 @@ function irParaModulos() {
     document.getElementById('selecao-categoria').classList.remove('hidden');
 }
 
+// ==================================================
+// INICIAR MÓDULO
+// ==================================================
+
 function iniciarModulo(categoria) {
+
     estado.categoriaAtual = categoria;
     estado.indiceAtual = 0;
     estado.pontuacao = 0;
@@ -129,29 +148,48 @@ function iniciarModulo(categoria) {
     renderizarEtapa();
 }
 
+// ==================================================
+// MOSTRAR AULA E PERGUNTAS
+// ==================================================
+
 function renderizarEtapa() {
+
     const container = document.getElementById('quiz-container');
 
     const dados = CONTEUDO_GERAL[estado.categoriaAtual][estado.indiceAtual];
+
+    if (!dados) {
+        finalizarQuiz();
+        return;
+    }
 
     if (estado.mostrandoAula) {
 
         container.innerHTML = `
             <h2>${dados.titulo}</h2>
 
-            <img src="${dados.imagem}"
-                 class="img-aula"
-                 onerror="this.src='https://via.placeholder.com/500x300?text=Imagem+Indisponível'">
+            <img
+                src="${dados.imagem}"
+                class="img-aula"
+                style="max-width:100%; height:auto; border-radius:10px;"
+                onerror="this.src='https://via.placeholder.com/500x300?text=Imagem+Indisponivel'"
+            >
 
             <div class="texto-explicativo">
                 <p>${dados.texto_aula.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
             </div>
 
-            <button class="botao-principal"
-                onclick="estado.mostrandoAula = false; renderizarEtapa();">
+            <br>
+
+            <button class="botao-principal" id="btn-desafio">
                 Fazer Desafio
             </button>
         `;
+
+        document.getElementById('btn-desafio').addEventListener('click', function() {
+            estado.mostrandoAula = false;
+            renderizarEtapa();
+        });
 
     } else {
 
@@ -161,16 +199,35 @@ function renderizarEtapa() {
             <h3>${dados.pergunta}</h3>
 
             <div class="alternativas">
-                ${alternativasFinal.map(alt => `
-                    <button class="btn-alt"
-                        onclick="verificarResposta(${JSON.stringify(alt).replace(/</g, '\\u003c')})">
+                ${alternativasFinal.map((alt, index) => `
+                    <button class="btn-alt" data-resposta="${index}">
                         ${alt}
                     </button>
                 `).join('')}
             </div>
         `;
+
+        // CORREÇÃO DOS BOTÕES DE RESPOSTA
+
+        container.querySelectorAll('.btn-alt').forEach(botao => {
+
+            botao.addEventListener('click', function() {
+
+                const escolha = alternativasFinal[
+                    Number(this.dataset.resposta)
+                ];
+
+                verificarResposta(escolha);
+
+            });
+
+        });
     }
 }
+
+// ==================================================
+// VERIFICAR RESPOSTA
+// ==================================================
 
 function verificarResposta(escolha) {
 
@@ -188,13 +245,19 @@ function verificarResposta(escolha) {
     if (acertou) {
 
         estado.pontuacao++;
+
         estado.indiceAtual++;
+
         estado.mostrandoAula = true;
 
         if (estado.indiceAtual < CONTEUDO_GERAL[estado.categoriaAtual].length) {
+
             renderizarEtapa();
+
         } else {
+
             finalizarQuiz();
+
         }
 
     } else {
@@ -212,16 +275,27 @@ function verificarResposta(escolha) {
                 <p>${dados.texto_aula.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
             </div>
 
-            <button class="botao-principal"
-                onclick="estado.indiceAtual++; estado.mostrandoAula = true; renderizarEtapa();">
+            <br>
+
+            <button class="botao-principal" id="btn-proxima">
                 Próxima Pergunta
             </button>
         `;
+
+        document.getElementById('btn-proxima').addEventListener('click', function() {
+
+            estado.indiceAtual++;
+
+            estado.mostrandoAula = true;
+
+            renderizarEtapa();
+
+        });
     }
 }
 
 // ==================================================
-// ENVIO AUTOMÁTICO DO RELATÓRIO POR E-MAIL
+// ENVIAR RESULTADO AUTOMATICAMENTE POR E-MAIL
 // ==================================================
 
 async function enviarRelatorioAutomatico() {
@@ -239,15 +313,13 @@ Resposta do aluno: ${h.suaResposta}
 Resposta correta: ${h.correta}
 Resultado: ${h.status ? "ACERTOU" : "ERROU"}
 ------------------------------
-        `;
+`;
 
     }).join("\n");
 
     const dadosFormulario = new FormData();
 
-    dadosFormulario.append("_subject",
-        "Novo resultado - Mestre da Informática");
-
+    dadosFormulario.append("_subject", "Novo resultado - Mestre da Informática");
     dadosFormulario.append("_template", "table");
 
     dadosFormulario.append("Nome do aluno", estado.aluno.nome);
@@ -276,12 +348,12 @@ Resultado: ${h.status ? "ACERTOU" : "ERROU"}
         );
 
         if (!resposta.ok) {
-            throw new Error("Falha no envio");
+            throw new Error("Erro HTTP: " + resposta.status);
         }
 
         const resultado = await resposta.json();
 
-        if (resultado.success !== "true" && resultado.success !== true) {
+        if (resultado.success !== true && resultado.success !== "true") {
             throw new Error("O serviço não confirmou o envio.");
         }
 
@@ -296,7 +368,7 @@ Resultado: ${h.status ? "ACERTOU" : "ERROU"}
 }
 
 // ==================================================
-// FINALIZAÇÃO DO MÓDULO
+// FINALIZAR QUIZ
 // ==================================================
 
 async function finalizarQuiz() {
@@ -313,6 +385,7 @@ async function finalizarQuiz() {
         <p>Você concluiu o módulo de ${estado.categoriaAtual.toUpperCase()}.</p>
 
         <div class="resultado-box">
+
             <p>Acertos:
                 <strong>${estado.pontuacao}</strong> de ${total}
             </p>
@@ -320,6 +393,7 @@ async function finalizarQuiz() {
             <p>Sua Nota:
                 <strong>${nota.toFixed(1)}</strong>
             </p>
+
         </div>
 
         <p id="status-email">
@@ -327,21 +401,23 @@ async function finalizarQuiz() {
         </p>
 
         <div class="beneficios-box">
+
             <h4>🚀 Por que aprender Informática?</h4>
 
             <ul>
                 <li>✅ Abre portas para muitos empregos.</li>
                 <li>✅ O mercado de tecnologia cresce rapidamente.</li>
-                <li>✅ Ajuda a resolver problemas.</li>
+                <li>✅ Ajuda a resolver problemas de forma lógica.</li>
                 <li>✅ Permite trabalhar de casa ou viajar.</li>
             </ul>
 
             <p>
                 Aprender computação é como ganhar um superpoder para o futuro!
             </p>
+
         </div>
 
-        <button class="botao-modulo" onclick="mostrarRevisao()">
+        <button class="botao-modulo" id="btn-revisao">
             Ver Revisão de Erros
         </button>
 
@@ -351,6 +427,8 @@ async function finalizarQuiz() {
 
         <div id="revisao-detalhada" class="hidden"></div>
     `;
+
+    document.getElementById('btn-revisao').addEventListener('click', mostrarRevisao);
 
     const enviado = await enviarRelatorioAutomatico();
 
@@ -362,9 +440,13 @@ async function finalizarQuiz() {
 
     } else {
 
-        status.innerHTML = "⚠️ Não foi possível confirmar o envio. Tente novamente mais tarde.";
+        status.innerHTML = "⚠️ Não foi possível confirmar o envio. Verifique sua conexão e a configuração do serviço de e-mail.";
     }
 }
+
+// ==================================================
+// REVISÃO DAS RESPOSTAS
+// ==================================================
 
 function mostrarRevisao() {
 
@@ -395,6 +477,10 @@ function mostrarRevisao() {
     `).join('');
 }
 
+// ==================================================
+// CONTROLE DA MÚSICA
+// ==================================================
+
 function toggleAudio() {
 
     const musica = document.getElementById("bg-music");
@@ -403,11 +489,16 @@ function toggleAudio() {
 
     if (musica.paused) {
 
-        musica.play();
+        musica.play().then(() => {
 
-        botao.innerHTML = "🔊 Música: Ligada";
+            botao.innerHTML = "🔊 Música: Ligada";
+            botao.style.borderColor = "#2ea043";
 
-        botao.style.borderColor = "#2ea043";
+        }).catch(erro => {
+
+            console.error("Não foi possível reproduzir a música:", erro);
+
+        });
 
     } else {
 
