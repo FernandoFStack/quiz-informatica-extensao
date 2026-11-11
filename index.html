@@ -12,6 +12,16 @@
     <header>
         <h1>Mestre da Informática</h1>
         <p>Aprenda conceitos reais com desafios divertidos!</p>
+        <!-- Elemento de áudio escondido (loop ativado para a música não parar) -->
+        <audio id="bg-music" loop>
+            <source src="musica.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+
+        <!-- Botão estiloso para ligar/desligar o som -->
+        <button id="btn-audio" onclick="toggleAudio()" class="btn-audio-estilo">
+            🔇 Música: Desligada
+        </button>
     </header>
 
     <main>
