@@ -243,24 +243,3 @@ function toggleAudio() {
         botao.style.borderColor = "#30363d";
     }
 }
-
-
-function enviarResultados(nome, escola, idade, pontuacao) {
-    fetch("https://formspree.io/f/xljbelrw", {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            nome: nome,
-            escola: escola,
-            idade: idade,
-            pontuacao: pontuacao
-        })
-    }).then(response => {
-        if (response.ok) {
-            console.log("Resultado enviado com sucesso para o e-mail!");
-        }
-    });
-}
