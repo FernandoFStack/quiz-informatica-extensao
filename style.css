@@ -1,4 +1,4 @@
-/* RESET E CORES BASE - DARK TECH */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* CABEÇALHO ENXUTO E CENTRALIZADO */
+
 header {
     background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
     padding: 12px 10px;
@@ -35,47 +35,46 @@ header p {
     color: #8b949e;
 }
 
-/* CONTAINER CENTRALIZADO E COMPACTO */
+
 .card, #quiz-container {
     background: #161b22;
-    width: 90%;
-    max-width: 650px;
-    margin: 15px auto;
-    padding: 20px;
+    width: 92%;
+    max-width: 720px; 
+    margin: 20px auto;
+    padding: 24px 30px; 
     border-radius: 10px;
     border: 1px solid #30363d;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    text-align: center; /* Garante que tudo fique centralizado */
+    text-align: center;
 }
 
 /* TÍTULO INTERNO DO CARD */
 .card h2, #quiz-container h2 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
     color: #f0f6fc;
 }
 
-/* IMAGEM PROPORCIONAL E CENTRALIZADA */
+
 .card img, #quiz-container img, .img-aula {
     width: auto;
     max-width: 100%;
-    max-height: 180px; /* Tamanho proporcional ideal */
+    max-height: 230px; 
     object-fit: contain;
     border-radius: 6px;
     border: 1px solid #30363d;
-    margin: 10px auto;
+    margin: 12px auto;
     display: block;
 }
 
-/* TEXTO DA AULA COMPACTO */
+
 .card p, #quiz-container p {
-    font-size: 0.88rem;
-    line-height: 1.35;
-    margin-bottom: 12px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin-bottom: 15px; 
     color: #c9d1d9;
 }
 
-/* INPUTS DA TELA INICIAL COMPACTOS E CENTRALIZADOS */
 input[type="text"], input[type="number"] {
     padding: 8px 12px;
     font-size: 0.85rem;
@@ -86,7 +85,6 @@ input[type="text"], input[type="number"] {
     margin: 4px;
 }
 
-/* BOTÕES DE ALTERNATIVAS E NAVEGAÇÃO */
 .alternativas {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -111,7 +109,6 @@ input[type="text"], input[type="number"] {
     color: #58a6ff;
 }
 
-/* BOTÃO PRINCIPAL VERDE (FAZER DESAFIO / INICIAR) */
 .botao-principal, .botao-modulo {
     background-color: #238636;
     color: #ffffff;
@@ -121,7 +118,7 @@ input[type="text"], input[type="number"] {
     font-size: 0.9rem;
     font-weight: bold;
     cursor: pointer;
-    margin: 10px auto 0 auto;
+    margin: 5px auto 0 auto; 
     display: inline-block;
     transition: background 0.2s;
 }
@@ -130,7 +127,6 @@ input[type="text"], input[type="number"] {
     background-color: #2ea043;
 }
 
-/* RODAPÉ DISCRETO */
 footer {
     margin-top: auto;
     padding: 10px;
@@ -145,7 +141,6 @@ footer strong {
     color: #58a6ff;
 }
 
-/* CLASSES AUXILIARES */
 .hidden { display: none !important; }
 .correta { color: #2ea043; font-weight: bold; }
 .errada { color: #f85149; font-weight: bold; }
