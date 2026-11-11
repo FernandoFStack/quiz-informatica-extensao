@@ -33,6 +33,15 @@ header p {
     color: #8b949e;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 20px;
+}
+
 .card, #quiz-container {
     background: #161b22;
     width: 92%;
@@ -80,6 +89,14 @@ header p {
     background: #0d1117;
     color: #c9d1d9;
     font-size: 0.85rem;
+}
+
+.menu-modulos {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
 }
 
 .alternativas {
