@@ -12,13 +12,11 @@
     <header>
         <h1>Mestre da Informática</h1>
         <p>Aprenda conceitos reais com desafios divertidos!</p>
-        <!-- Elemento de áudio escondido (loop ativado para a música não parar) -->
+
         <audio id="bg-music" loop>
             <source src="musica.mp3" type="audio/mpeg">
-            Seu navegador não suporta áudio.
         </audio>
 
-        <!-- Botão estiloso para ligar/desligar o som -->
         <button id="btn-audio" onclick="toggleAudio()" class="btn-audio-estilo">
             🔇 Música: Desligada
         </button>
@@ -26,11 +24,22 @@
 
     <main>
         <div id="tela-cadastro" class="card">
-    <h2>Bem-vindo ao Desafio!</h2>
-    <p>Preencha seus dados para começar:</p>
+            <h2>Bem-vindo ao Desafio!</h2>
+            <p>Preencha seus dados para começar:</p>
+
+            <input type="text" id="nome-usuario" placeholder="Nome completo" required>
+            <input type="text" id="escola-usuario" placeholder="Nome da escola" required>
+            <input type="number" id="idade-usuario" placeholder="Idade" min="1" max="120" required>
+
+            <br>
+            <button class="botao-principal" onclick="irParaModulos()">
+                Começar
+            </button>
+        </div>
 
         <div id="selecao-categoria" class="card hidden">
             <h2>Escolha um módulo:</h2>
+
             <div class="menu-modulos">
                 <button class="botao-modulo" onclick="iniciarModulo('hardware')">💻 Hardware</button>
                 <button class="botao-modulo" onclick="iniciarModulo('atalhos')">⌨️ Atalhos</button>
@@ -41,11 +50,12 @@
         <div id="quiz-container" class="card hidden"></div>
     </main>
 
-    <footer style="margin-top: auto; padding: 20px; background: #161b22; border-top: 2px solid #58a6ff; text-align: center; color: #8b949e;">
-    Desenvolvido por: <strong style="color: #58a6ff;">Fernando Fernandes Leite de Oliveira</strong> |
-    Instituição: <strong style="color: #58a6ff;">Uninter</strong> |
-    Ano: <strong style="color: #58a6ff;">2026</strong>
-</footer>
+    <footer>
+        Desenvolvido por:
+        <strong>Fernando Fernandes Leite de Oliveira</strong> |
+        Instituição: <strong>Uninter</strong> |
+        Ano: <strong>2026</strong>
+    </footer>
 
     <script src="app.js"></script>
 </body>
